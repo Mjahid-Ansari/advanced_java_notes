@@ -1,0 +1,290 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+    .parentDiv{
+        height: 500px;
+        width: 600px;
+        border: 2px solid black;
+        background-color: rgb(209, 14, 95);  
+    }
+
+    .childDiv{
+        height: 200px;
+        width: 300px;
+        border: 2px solid rgb(132, 15, 228);
+        background-color: chartreuse;
+        margin: 150px;
+
+    }
+</style>
+
+<body>
+  <div class="parentDiv" id="parentId">
+      <div class="childDiv" id="childId">
+
+      </div>
+  </div>  
+</body>
+
+<script>
+//******************************************************************
+//bubling capture and 
+
+    const parentId = document.getElementById('parentId');
+    const childId = document.getElementById('childId');
+
+    const parentCall = () => {
+        alert('Parent Div Call ');
+       // console.log('Parent Div Call');
+      // event.stopPropagation();
+    }
+
+    const childCall = () => {
+        alert('Child Div Call ');
+      // event.stopPropagation();
+       // console.log('Child Div Call');
+    }
+
+    parentId.addEventListener('click', parentCall, false);
+    childId.addEventListener('click', childCall , false);
+
+// ************************************************************
+/*
+// CallBack / heigher order.  Function.
+
+const add = (a,b) => {
+    return a+b;
+}
+const subs = (a,b) => {
+    return Math.abs(a-b);
+}
+const mult = (a,b) => {
+    return a*b;
+}
+
+const calculator = (num1, num2, operator) => {
+    return operator(num1,num2);
+}
+
+console.log(calculator(5,3,add));
+
+//****************************************************************
+
+// Hoisting in javaScript
+// execution phase
+
+console.log(myName);
+var myName;
+myName = "faisal";
+
+//  creation phase
+// 1:  var myName = undefined;
+// 2:  console.log(myName);
+// 3: myName = "khan";
+   
+
+// Scope chain and lexical scoping in js
+// scope chain 
+ var pi = 3.14;
+ 
+
+ // lexical scoping
+
+ let a = "hello bro, ";   // global scape
+
+ const first = () => {
+     let b = "how are you?, ";
+
+      const second = () => {
+          let c = "hii, i am fine thank you";
+          console.log(a+b+c);
+      }
+      second();
+      // console.log(a+b+c);  //i can't use c
+      
+ }
+ first();
+
+//*********
+// Closures function  in js
+ 
+//* it is same like lexical scaping
+
+//Ex-1
+
+const outFun = (a) => {
+    let b = 10;
+    const innerFun = () => {
+       let sum = a+b;
+       console.log(`the sum of two number is ${sum}`)
+    } 
+    innerFun();
+}
+outFun(5);
+
+// Ex-2
+
+const outFun = (a) => {
+    let b = 10;
+    const innerFun = () => {
+       let sum = a+b;
+       console.log(`the sum of two number is ${sum}`)
+    } 
+    return innerFun;
+}
+let cheackClousure = outFun(5);
+ console.dir(cheackClousure);
+// console.log(cheackClousure(5));
+// cheackClousure();
+
+
+//***
+// synchronous function in java script
+// pahle 1 step complete karo then 2 step khatam karo 
+
+const fun2 = () => {
+    console.log('function 2 is called');
+}
+
+const fun1 = () => {
+    console.log('function 1 is called');
+    fun2();
+    console.log('function 1 is called again ');
+}
+
+fun1();
+
+//**
+//Asynchronous function in java script
+
+const fun2 = () => {
+    setTimeout(() => {
+        console.log('function 2 is called');  
+    }, 1000);
+    
+}
+
+const fun1 = () => {
+    console.log('function 1 is called');
+    fun2();
+    console.log('function 1 is called again ');
+}
+
+fun1();
+
+//**
+// Event loop in js
+
+//*************** Back to advance js ***************************
+
+// Currying function in js
+// question 1: 
+// find the sum (3)(5)(8) = 16 ans.
+
+function sum(num1){
+  //  console.log(num1);
+  return function(num2) {
+      //console.log(num1,num2);
+      return function(num3){
+          console.log(num1,num2,num3);
+      }
+  }
+}
+
+sum(5)(3)(8);
+
+
+//
+
+function sum(num1){
+  //  console.log(num1);
+  return function(num2) {
+      //console.log(num1,num2);
+      return function(num3){
+          console.log(num1+num2+num3);
+      }
+  }
+}
+
+sum(5)(3)(8);
+
+//
+
+// Function Currying
+
+const sum = (num1) => (num2) => (num3) => console.log(num1+num2+num3);
+
+sum(5)(3)(8);
+
+//
+
+
+//**************** CallBack Hell Function
+
+setTimeout(() => {
+    console.log('1: work done');
+    setTimeout(() => {
+        console.log('2: works done')
+        setTimeout(() => {
+            console.log('3: works done')
+            setTimeout(() => {
+                console.log('4: workss done');
+                setTimeout(() => {
+                    console.log('5: worke done');
+                    setTimeout(() => {
+                        console.log('6: workee is done');
+                    }, 1000);
+                }, 1000);
+            }, 1000);
+        }, 1000);
+    }, 1000);
+}, 1000);
+
+
+//************** JSON
+// // // Bo0nus JSON 
+
+var my_object = {key_1: "some text", key_2: true, key_3:5 };
+
+var object_as_string = JSON.stringify(my_object);
+
+// for ex--  "{"key_1": "some text", "key_2": true,"" key_3": 5 } "
+
+typeof(object_as_string)
+// " string"
+
+
+//************* JSON.parse ---
+//JSON.parse  turn a string of JSON text into a javascript object, ex--
+
+var object_as_string_as_object = JSON.parse(object_as_string);
+// {key_1: "some text", key_2: true, key_3:5 }
+
+typeof(object_as_string_as_object);
+// "object"
+
+
+*/
+
+
+//****************************** AJAX Call using XMLHttprequest ------
+
+// // how to handled with the events and callback
+
+
+
+
+
+
+
+</script>
+
+</html>
